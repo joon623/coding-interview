@@ -47,6 +47,13 @@ const navigationCards: NavigationCard[] = [
     icon: <Star className="w-6 h-6" />,
     link: "/reviews",
     color: "from-purple-500 to-pink-500"
+  },
+  {
+    title: "개발자 성향 테스트",
+    description: "나에게 맞는 개발 분야를 찾아보세요.",
+    icon: <UserCircle className="w-6 h-6" />,
+    link: "/mbti",
+    color: "from-violet-500 to-fuchsia-500"
   }
 ];
 
@@ -107,26 +114,6 @@ export default function Index() {
               </Link>
             </motion.div>
           ))}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Link
-              to="/mbti"
-              className="group relative overflow-hidden rounded-lg bg-white p-6 shadow-lg transition-shadow hover:shadow-xl"
-            >
-              <div className="flex items-center gap-4">
-                <div className="rounded-full bg-indigo-100 p-3">
-                  <UserCircle className="h-6 w-6 text-indigo-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">개발자 성향 테스트</h3>
-                  <p className="text-sm text-gray-500">나에게 맞는 개발 분야 찾기</p>
-                </div>
-              </div>
-            </Link>
-          </motion.div>
         </div>
 
         {/* Stats Section */}
