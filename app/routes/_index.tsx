@@ -1,4 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
+import { ArrowRight, Users, Calendar, Target, BookOpen, Briefcase, Star, UserCircle } from "lucide-react";
+import { motion } from "framer-motion";
+import { Card } from "~/components/ui/card";
 
 export const meta: MetaFunction = () => {
   return [
@@ -7,47 +11,169 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+interface NavigationCard {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  link: string;
+  color: string;
+}
+
+const navigationCards: NavigationCard[] = [
+  {
+    title: "면접 연습",
+    description: "실전과 같은 면접을 경험해보세요. 동료들과 함께 성장할 수 있습니다.",
+    icon: <Users className="w-6 h-6" />,
+    link: "/interviews",
+    color: "from-blue-500 to-indigo-500"
+  },
+  {
+    title: "기술 면접 질문",
+    description: "200+ 실제 기술 면접 질문과 모범 답안을 제공합니다.",
+    icon: <BookOpen className="w-6 h-6" />,
+    link: "/questions",
+    color: "from-emerald-500 to-teal-500"
+  },
+  {
+    title: "채용 정보",
+    description: "최신 개발자 채용 정보를 확인하고 지원해보세요.",
+    icon: <Briefcase className="w-6 h-6" />,
+    link: "/jobs",
+    color: "from-orange-500 to-pink-500"
+  },
+  {
+    title: "합격 후기",
+    description: "실제 합격자들의 생생한 후기를 통해 성공 전략을 세워보세요.",
+    icon: <Star className="w-6 h-6" />,
+    link: "/reviews",
+    color: "from-purple-500 to-pink-500"
+  }
+];
+
 export default function Index() {
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-16">
-        <header className="flex flex-col items-center gap-9">
-          <h1 className="leading text-2xl font-bold text-gray-800 dark:text-gray-100">
-            Welcome to <span className="sr-only">Remix</span>
-          </h1>
-          <div className="h-[144px] w-[434px]">
-            <img
-              src="/logo-light.png"
-              alt="Remix"
-              className="block w-full dark:hidden"
-            />
-            <img
-              src="/logo-dark.png"
-              alt="Remix"
-              className="hidden w-full dark:block"
-            />
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/90 to-indigo-600/90" />
+        </div>
+        <div className="relative px-4 py-24 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              개발자 면접 플랫폼
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-xl text-indigo-100">
+              면접 준비부터 채용 정보까지, 개발자 커리어의 모든 것
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Navigation Cards */}
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-8 md:grid-cols-2">
+          {navigationCards.map((card, index) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Link to={card.link} className="block h-full">
+                <Card className="group h-full p-6 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className={`rounded-lg p-3 bg-gradient-to-br ${card.color} text-white`}>
+                      {card.icon}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h2 className="text-xl font-semibold text-gray-900">
+                          {card.title}
+                        </h2>
+                        <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                      </div>
+                      <p className="mt-2 text-gray-600">
+                        {card.description}
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            </motion.div>
+          ))}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <Link
+              to="/mbti"
+              className="group relative overflow-hidden rounded-lg bg-white p-6 shadow-lg transition-shadow hover:shadow-xl"
+            >
+              <div className="flex items-center gap-4">
+                <div className="rounded-full bg-indigo-100 p-3">
+                  <UserCircle className="h-6 w-6 text-indigo-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">개발자 성향 테스트</h3>
+                  <p className="text-sm text-gray-500">나에게 맞는 개발 분야 찾기</p>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Stats Section */}
+        <div className="mt-24">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="text-4xl font-bold text-indigo-600">10,000+</div>
+              <div className="mt-2 text-base text-gray-600">활성 사용자</div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="text-4xl font-bold text-indigo-600">5,000+</div>
+              <div className="mt-2 text-base text-gray-600">면접 진행</div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="text-4xl font-bold text-indigo-600">98%</div>
+              <div className="mt-2 text-base text-gray-600">만족도</div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <div className="text-4xl font-bold text-indigo-600">200+</div>
+              <div className="mt-2 text-base text-gray-600">기술 면접 질문</div>
+            </motion.div>
           </div>
-        </header>
-        <nav className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
-          <p className="leading-6 text-gray-700 dark:text-gray-200">
-            What&apos;s next?
-          </p>
-          <ul>
-            {resources.map(({ href, text, icon }) => (
-              <li key={href}>
-                <a
-                  className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {icon}
-                  {text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        </div>
       </div>
     </div>
   );

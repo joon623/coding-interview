@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import Footer from "~/components/Footer";
 
 import "./tailwind.css";
 
@@ -41,5 +42,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <html lang="ko">
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+      <body className="min-h-screen flex flex-col">
+        <main className="flex-grow">
+          <Outlet />
+        </main>
+        <Footer />
+      </body>
+    </html>
+  );
 }
